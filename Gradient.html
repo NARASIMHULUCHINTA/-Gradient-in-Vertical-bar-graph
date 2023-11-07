@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Graph Plotter</title>
+    <style>
+        .container {
+            margin-top: 50px;
+            text-align: center;
+        }
+        h1 {
+            position: absolute;
+            left: 80px;
+            top: 94px;
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 29px;
+            color: #003F73;
+        }
+        .inputbox {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            padding: 16px;
+            gap: 10px;
+            position: absolute;
+            width: 310px;
+            height: 51px;
+            top: 155px;
+            background: #C2E3FF;
+            border-radius: 4px;
+            border-color: #C2E3FF;
+        }
+        .inputbox::placeholder {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19px;
+            color: #003F73;
+        }
+        #inputValue {
+            left: 80px;
+        }
+        #maxValue {
+            left: 457px;
+        }
+        .graph {
+            width: 60px;
+            height: 100%;
+            background: linear-gradient(to bottom, #C2E3FF 100%, #008CFF 100%);
+            margin-left: 10px;
+        }
+        .graph-container {
+            align-items: center;
+            height: 200px;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #plotButton {
+            width: 100px;
+            height: 30px;
+            background-color: #C2E3FF;
+            top: 200px;
+            right: 300px;
+            position: absolute;
+        }
+        #percentageLabel{
+            left: 10px;
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 29px;
+            color: #008CFF;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Graph Plotter</h1>
+        <div>
+            <input type="number" id="inputValue" class="inputbox" placeholder="Input Value">
+        </div>
+        <div>
+            <input type="number" id="maxValue" class="inputbox" placeholder="maxValue">
+        </div>
+        <button id="plotButton">Plot</button>
+        <div class="graph-container">
+            <div class="graph" id="barGraph"></div>
+            <h4 id="percentageLabel"></h4>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("plotButton").addEventListener("click", function() {
+            var inputValue = parseInt(document.getElementById("inputValue").value);
+            var maxValue = parseInt(document.getElementById("maxValue").value);
+
+            if (inputValue > maxValue) {
+                alert("Input Value cannot be greater than Max Value");
+            } else {
+                plotGraph(inputValue, maxValue);
+            }
+        });
+
+        function plotGraph(inputValue, maxValue) {
+            var percentage = ((inputValue / maxValue) * 100).toFixed(2);
+            var barGraph = document.getElementById("barGraph");
+            barGraph.style.background = `linear-gradient(to bottom, #C2E3FF ${percentage}%, #008CFF 100%)`;
+            percentageLabel.innerText = `${percentage}%`;
+        }
+    </script>
+</body>
+</html>
